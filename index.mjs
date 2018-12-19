@@ -2,8 +2,10 @@ import { LazyGraph } from "./graphs";
 import {EagerGraph} from "./graphs.mjs";
 
 const circularRefGraph = {
-  n: (a) => a,  
-  a: (n) => n,
+  n: (a) => a,
+  a: (b, x) => b+x,
+  b: (x, c) => x+c,
+  c: (n) => n,
   z: (x) => x,
   x: (z) => z,
 };

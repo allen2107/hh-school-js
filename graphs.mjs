@@ -22,18 +22,21 @@ export class LazyGraph {
     }
 
     checkResolvable(vertex) {
-        let references = new Set();
+        let references = [];
         let resolved = new Set();
 
         const resolve = (key) => {
             if (!this.graph.hasOwnProperty(key)) {
                 throw new Error('Graph has no vertex with name ' + key);
             }
-            references.add(key);
+            references.push(key);
             let params = getFunctionParams(this.graph[key]);
             params.forEach(p => {
-                if (references.has(p) && !resolved.has(p)){
-                    throw new Error('Circular reference with key ' + p);
+                if (references.includes(p) && !resolved.has(p)){
+                    references.push(p);
+                    throw new Error('Circular reference: ' + references
+                        .filter(ref => !resolved.has(ref))
+                        .join('->'));
                 }
                 resolve(p);
             });
