@@ -1,7 +1,7 @@
 import { LazyGraph } from "./graphs";
 import {EagerGraph} from "./graphs.mjs";
 
-const cirtucalRefGraph = {
+const circularRefGraph = {
   n: (a) => a,  
   a: (n) => n,
   z: (x) => x,
@@ -25,7 +25,7 @@ const customAmazingGraph = {
 };
 
 const iter_graph_by_keys = (object, graph) => {
-    console.log('Iterating graph builder by object:', object);
+    console.log('Iterating graph builded by object:', object);
 
     Object.keys(object).forEach(key => {
         try {
@@ -38,6 +38,6 @@ const iter_graph_by_keys = (object, graph) => {
 
 iter_graph_by_keys(myAmazingGraph, new LazyGraph(myAmazingGraph));
 iter_graph_by_keys(customAmazingGraph, new EagerGraph(customAmazingGraph));
-iter_graph_by_keys(cirtucalRefGraph, new LazyGraph(cirtucalRefGraph));
+iter_graph_by_keys(circularRefGraph, new LazyGraph(circularRefGraph));
 
 
